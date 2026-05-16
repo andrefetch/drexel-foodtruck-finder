@@ -6,6 +6,9 @@ from truckfinder import db
 from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours, TruckRating, SubmittedTruck, TruckReview
 from datetime import datetime
 from truckfinder.forms import FoodTruckForm
+from sqlalchemy.orm import selectinload
+from sqlalchemy import func
+
 """
 David Liberatore
 5/8/2026
@@ -131,17 +134,21 @@ def get_food_trucks():
     today = now.weekday()
 
     # This line gets all the trucks in the db
-    trucks = FoodTruck.query.filter_by(is_hidden=False).all()
+    trucks = (
+        FoodTruck.query
+        .options(selectinload(FoodTruck.hours))
+        .filter_by(is_hidden=False)
+        .all()
+    )
     # Makes a list to store this data
     data = []
 
     # Simple for - loop that goes through
     for truck in trucks:
-        # This gets the hours for all days that it operates
-        all_hours = FoodTruckHours.query.filter_by(
-            food_truck_id=truck.id
-        # Orders by the days of week so it is in order
-        ).order_by(FoodTruckHours.day_of_week).all()
+        all_hours = sorted(
+            truck.hours,
+            key=lambda h: h.day_of_week
+        )
 
         # This finds teh hours row for today from all the hours for this truck
         # Doesn't stop iterating throughout the hours until it finds today
@@ -270,8 +277,14 @@ def is_truck_open(hours_row, now=None):
 @bp.route('/api/trucks/<int:truck_id>/rating', methods=['GET'])
 def get_truck_rating(truck_id):
     ratings = TruckRating.query.filter_by(truck_id=truck_id).all()
-    total = len(ratings)
-    avg = round(sum(r.stars for r in ratings) / total, 2) if total > 0 else 0
+    total, avg = db.session.query(
+        func.count(TruckRating.id),
+        func.avg(TruckRating.stars)
+    ).filter(TruckRating.truck_id == truck_id).first()
+
+    avg = round(avg or 0, 2)
+    total = total or 0
+
     return jsonify({ "avg_rating": avg, "total_ratings": total })
 
 @bp.route('/api/trucks/<int:truck_id>/rating', methods=['POST'])
@@ -319,11 +332,12 @@ def map_with_reviews(truck_id):
 def get_truck_reviews(truck_id):
     reviews = TruckReview.query.filter_by(truck_id=truck_id)\
         .order_by(TruckReview.created_at.desc()).all()
-    
-    ratings_data = { # Joined the ratings route data into the reviews route.
-        r.user_id: r.stars
-        for r in TruckRating.query.filter_by(truck_id=truck_id).all()
-    }
+
+    ratings_data = dict(
+        db.session.query(TruckRating.user_id, TruckRating.stars)
+        .filter(TruckRating.truck_id == truck_id)
+        .all()
+    )
 
     # Author: Andre Nunes da Silva @ 04/20/26
     # Added stars to the review payload so the FE can actually display the user's star rating next to their review.

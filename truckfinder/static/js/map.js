@@ -55,6 +55,9 @@ window.map = L.map('map', {
 
 var tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { // new map distro
     maxZoom: 19,
+    // KEEP AT 8 IT IS A LOT HARDER TO USE ON WEAKER DEVICES
+    // I SWEAR DO NOT CHANGE IT
+    keepBuffer: 8
 }).addTo(window.map);
 
 map.locate({

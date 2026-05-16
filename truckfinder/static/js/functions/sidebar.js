@@ -146,11 +146,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             const popupContainer = marker.getPopup().getElement();
                             if (!popupContainer) {
                                 // Fallback: if popup element isn't ready, fly to marker directly
-                                map.flyTo(marker.getLatLng(), 19, { animate: true });
+                                map.flyTo(
+                                    marker.getLatLng(),
+                                    18,
+                                    {
+                                        duration: 1
+                                        }
+                                );
                                 return;
                             }
 
-                            const targetZoom = 19;
+                            const targetZoom = 18;
                             // Convert the marker's lat/lng to pixel coordinates at current zoom
                             const px = map.project(marker.getLatLng(), targetZoom);
 
@@ -163,7 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             // Pan the map to the new coordinates at the current zoom level
                             // This ensures the popup is fully visible and centered
-                            map.flyTo(centeredLatLng, targetZoom, { animate: true });
+                            map.flyTo(
+                                centeredLatLng,
+                                targetZoom,
+                                {
+                                    duration: 1.1
+                                }
+                            );
                         });
 
                         // Add the truck button to the sidebar container
