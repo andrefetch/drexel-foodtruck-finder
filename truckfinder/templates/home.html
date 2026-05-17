@@ -58,7 +58,7 @@
         </div>
         <h3>Find nearby trucks</h3>
         <p>See every food truck within your radius on our interactive map, track their location with one button and be there in minutes.</p>
-        <a href="{{ url_for('main.map_page') }}">Explore the map</a>
+        <a href="{{ url_for('main.map_page') }}">Explore The Map</a>
     </div>
 
     <div class="middle">
@@ -67,7 +67,7 @@
         </div>
         <h3>Live locations</h3>
         <p>Track trucks and their location in real time. No more showing up and getting shown up.</p>
-        <a href="{{ url_for('main.map_page') }}">See live map</a>
+        <a href="{{ url_for('main.map_page') }}">See Live Map</a>
     </div>
 
      <div class="card">
@@ -76,7 +76,7 @@
       </div>
       <h3>Reviews</h3>
       <p>Real reviews from real students, rate meals, leave a pic, help the drexel community find its best bites.</p>
-      <a href="#">Read reviews</a>
+      <a href="{{ url_for('main.map_page') }}">Read Reviews</a>
     </div>
 
      <div class="card">
@@ -85,24 +85,25 @@
       </div>
       <h3>Favorites</h3>
       <p>Found a new favorite foodtruck? Add it to your favorites by clicking on the bookmark button! Saved locally to your device and you can access your favorites anytime if you forget the name of a foodtruck or where it's located.</p>
+      <a href="{{ url_for('main.map_page') }}">Favorite Trucks</a>
     </div>
 
     <div class="card">
-      <span class="pill-soon">Coming soon</span>
       <div class="filter-card">
         <i class="fa-solid fa-filter"></i>
       </div>
       <h3>Filter</h3>
       <p>Know what you want to eat, but don't know the foodtrucks around? Now you can filter by cuisine on our sidepanel using a dropdown menu!</p>
+      <a href="{{ url_for('main.map_page') }}">Filter Cuisines</a>
     </div>
 
       <div class="card">
-      <span class="pill-soon">Coming soon</span>
       <div class="search-card">
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
       <h3>Search</h3>
       <p>Know the name of a foodtruck, but don't know where it's at. You can search the name of the foodtruck on our map page and be able to track their live location.</p>
+      <a href="{{ url_for('main.map_page') }}">Search For Trucks</a>
     </div>
 
     
