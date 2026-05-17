@@ -18,6 +18,7 @@ const closedIcon = L.icon({
 
 //Swaps between light and dark mode by changing the map url the tiles pull from
 //Alex Troeschel, 4/11/2026 @ 10:19pm
+/*
 const modeBtn = document.getElementById("mode-swap");
 var isLight = false;
 
@@ -42,6 +43,7 @@ function swapModes() {
   }
 }
 modeBtn.addEventListener('click', swapModes);
+*/
 
 window.map = L.map('map', {
   zoomControl: false, // gets rid of zoom buttons (+ -)
