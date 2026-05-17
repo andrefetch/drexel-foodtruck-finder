@@ -44,10 +44,10 @@ python run.py
 ```
 
 Once you run the above code, in your terminal, you should see the below:
-```bash
+
 * Running on http://xxx.x.x.x:xxxx
 * Running on http://xx.xxx.xxx.xx:xxxx
-```
+
 Hold ctrl and click on either link. The website will open to the "Home" page.
 
 ### General Page Info
