@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
         applyFilters();
     });
     
-    window.applyFilters = function() {
+    window.applyFilters = function(categoryInput = "all") {
         const query = searchInput.value.toLowerCase().trim();
-        const activeCategory = document.querySelector(".filter-pill.active")?.textContent.toLowerCase().replace(/[^a-z ]/g, "").trim();
+        const activeCategory = categoryInput;
         const activeTabBtn = document.querySelector(".tab-btn.active");
         const isFavoritesTab = activeTabBtn && activeTabBtn.textContent.toLowerCase().includes("favorites");
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]").map(String);
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.filterByCategory = function(category, btn) {
         document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
         btn.classList.add("active");
-        applyFilters();
+        applyFilters(category);
     }
     
     window.clearSearch = function() {

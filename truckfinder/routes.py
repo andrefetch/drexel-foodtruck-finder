@@ -181,6 +181,7 @@ def get_food_trucks():
         data.append({
             "id": truck.id,
             "name": truck.name,
+            "cuisine": truck.cuisine,
             "latitude": truck.latitude,
             "longitude": truck.longitude,
             "description": truck.description,
