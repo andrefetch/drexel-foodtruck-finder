@@ -3,6 +3,13 @@
  Creates functionality of Admin Page Home Screen-->
 {% extends 'admin/master.html' %}
 
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png')}}">
+{% endblock %}
+
 {% block body %}
 <div class="container-fluid" style="max-width: 900px; padding: 2rem;">
 
@@ -24,7 +31,7 @@
       <form method="POST" action="{{ url_for('admin.merge_trucks') }}"
             onsubmit="return confirm('Merge all approved submitted trucks?')">
         <button type="submit" class="btn btn-success">
-          🚚 Merge Approved Trucks
+          <i class="fa-solid fa-truck"></i> Merge Approved Trucks
         </button>
       </form>
     </div>
@@ -41,7 +48,7 @@
           onsubmit="return confirm('Update all CSV files from the current database?')">
 
       <button type="submit" class="btn btn-primary">
-        📄 Update CSV Files
+        <i class="fa-solid fa-file-csv"></i> Update CSV Files
       </button>
 
     </form>
@@ -52,9 +59,16 @@
   <div class="card mt-4">
     <div class="card-body">
       <h5 class="card-title">Truck Map Overview</h5>
-      <div style="display:flex; gap:20px; font-size:13px; color:#888; margin-bottom:8px;">
-        <span>🔵 Main trucks</span>
-        <span>🟠 Submitted trucks</span>
+      <div style="display:flex; gap:20px; font-size:13px; color:#888; margin-bottom:8px; align-items:center;">
+        <span style="display:inline-flex; align-items:center; gap:6px;">
+          <img src="{{ url_for('static', filename='images/not_hidden.png') }}" style="width:20px; height:20px;"> Visible truck
+        </span>
+        <span style="display:inline-flex; align-items:center; gap:6px;">
+          <img src="{{ url_for('static', filename='images/is_hidden.png') }}" style="width:20px; height:20px;"> Hidden truck
+        </span>
+        <span style="display:inline-flex; align-items:center; gap:6px;">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" style="width:20px; height:20px;"> Submitted truck
+        </span>
       </div>
       <div id="minimap" style="height:400px; border-radius:8px; overflow:hidden;"></div>
     </div>
@@ -65,22 +79,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-  function makeIcon(color, border) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
-      <path d="M14 0 C6.3 0 0 6.3 0 14 C0 24.5 14 36 14 36 C14 36 28 24.5 28 14 C28 6.3 21.7 0 14 0 Z" fill="${color}" stroke="${border}" stroke-width="2"/>
-      <circle cx="14" cy="14" r="6" fill="white" opacity="0.9"/>
-    </svg>`;
-    return L.divIcon({
-      html: svg,
-      iconSize: [28, 36],
-      iconAnchor: [14, 36],
-      popupAnchor: [0, -38],
-      className: ''
-    });
-  }
-
-  const mainIcon = makeIcon('#378ADD', '#185FA5');
-  const submittedIcon = makeIcon('#D85A30', '#993C1D');
+  const hiddenIcon = L.icon({
+    iconUrl: "{{ url_for('static', filename='images/is_hidden.png') }}",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+  const visibleIcon = L.icon({
+    iconUrl: "{{ url_for('static', filename='images/not_hidden.png') }}",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+  const submittedIcon = L.icon({
+    iconUrl: "{{ url_for('static', filename='images/logo.png') }}",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
 
   const minimap = L.map('minimap', {
     zoomControl: true,
@@ -97,7 +113,7 @@
     .then(response => response.json())
     .then(data => {
       data.forEach(truck => {
-        L.marker([truck.latitude, truck.longitude], { icon: mainIcon })
+        L.marker([truck.latitude, truck.longitude], { icon: truck.is_hidden ? hiddenIcon : visibleIcon })
           .addTo(minimap)
           .bindPopup(`
             <strong>${truck.name}</strong><br>

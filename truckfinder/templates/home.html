@@ -125,15 +125,15 @@
 </div>
     <div class="about-right">
       <div class="stat-card">
-        <span class="stat-number">17</span>
+        <span class="stat-number" id="stat-trucks">--</span>
         <span class="stat-label">Trucks tracked</span>
       </div>
       <div class="stat-card">
-        <span class="stat-number">300+</span>
+        <span class="stat-number" id="stat-menu-items">--</span>
         <span class="stat-label">Menu items</span>
       </div>
       <div class="stat-card">
-        <span class="stat-number">4</span>
+        <span class="stat-number" id="stat-cuisines">--</span>
         <span class="stat-label">Cuisines</span>
       </div>
       <div class="stat-card">
@@ -154,4 +154,5 @@
 
 </section>
 
+<script src="{{ url_for('static', filename='js/functions/homeStats.js') }}"></script>
 {% endblock %}

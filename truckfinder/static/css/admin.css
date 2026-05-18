@@ -1,0 +1,36 @@
+/* Admin dashboard grid background — mirrors the dark grid used on the public site body */
+body {
+  color: #fff;
+  background:
+    fixed linear-gradient(#2b2b2b, #2b2b2b 6px, transparent 6px, transparent),
+    fixed linear-gradient(transparent, #050505 70%),
+    fixed repeating-linear-gradient(#2b2b2b, #2b2b2b 1px, transparent 1px, transparent 40px),
+    scroll repeating-linear-gradient(to right, #2b2b2b, #2b2b2b 1px, transparent 1px, transparent 40px)
+      #070707 !important;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 194, 255, 0.08), transparent 22%),
+    radial-gradient(circle at 75% 45%, rgba(251, 227, 49, 0.06), transparent 20%);
+  animation: backgroundDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -15px) scale(1.05); }
+}
+
+/* Keep nav and content above the radial overlay */
+.navbar, .container-fluid, .card { position: relative; z-index: 1; }
+
+/* Card text stays dark on the white card background */
+.card, .card * { color: #1a1a2e; }
+
+/* Buttons keep their Bootstrap white text */
+.card .btn, .card .btn * { color: #fff; }

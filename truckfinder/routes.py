@@ -83,6 +83,21 @@ bp = Blueprint('main', __name__)
 def home():
     return render_template("home.html", title="Home")
 
+@bp.route("/stats/api", methods=["GET"])
+def stats_api():
+    truck_count = FoodTruck.query.filter_by(is_hidden=False).count()
+    menu_item_count = MenuItem.query.count()
+    cuisine_count = (
+        db.session.query(func.count(func.distinct(FoodTruck.cuisine)))
+        .filter(FoodTruck.is_hidden == False, FoodTruck.cuisine.isnot(None), FoodTruck.cuisine != "")
+        .scalar()
+    ) or 0
+    return jsonify({
+        "trucks": truck_count,
+        "menu_items": menu_item_count,
+        "cuisines": cuisine_count,
+    })
+
 @bp.route('/map')
 def map_page():
     return render_template('Map.html', title="Map")
