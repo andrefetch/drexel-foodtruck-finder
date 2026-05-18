@@ -2651,6 +2651,39 @@ body.light .scroll-indicator i {
   color: #D4600A;
 }
 
+/* Light Mode — About Page */
+
+body.light .team-section h1 {
+  color: #1a1a2e;
+}
+
+body.light .team-card p1,
+body.light .team-card p2 {
+  color: #1a1a2e;
+}
+
+body.light .team-member-img {
+  border-color: #0F4D92;
+}
+
+body.light .about-github {
+  background: rgba(15, 77, 146, 0.08);
+  border-color: rgba(15, 77, 146, 0.3);
+  color: #0F4D92;
+}
+
+body.light .about-github:hover {
+  background: rgba(15, 77, 146, 0.15);
+}
+
+body.light .about-us-img img {
+  filter: none;
+}
+
+body.light .hero-text p1 {
+  color: #3d3d3d;
+}
+
 /* Author: Andre Nunes da Silva @ 05/02/26 — review image attachment UI */
 .review-image-row {
     display: flex;
