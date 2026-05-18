@@ -2186,8 +2186,6 @@ input:focus {
 }
 
 /* Author: Maisha Sultana */
-
-/* Sidebar Light Mode Overrides */
 /* Main sidebar background */
 /* Sidebar Light Mode Overrides*/
 
@@ -2387,7 +2385,7 @@ body.light #truckList::-webkit-scrollbar-thumb {
     text-decoration: underline;
 }
 
-/* Light Mode Overrides  */
+/* Light Mode Overrides  05/17/26 */ 
 
 /* Search container background switches to Deep Jungle Green in light mode */
 body.light #search-container {
@@ -2423,8 +2421,70 @@ body.light #clear-filters {
   box-sizing: border-box;
 }
 
-/* Light Mode Background Overrides */
+/* Light Mode — Home Page */
 
+body.light h1 {
+  color: #1a1a2e;
+}
+
+body.light p1,
+body.light p2 {
+  color: #1a1a2e;
+}
+
+body.light .highlight {
+  color: #D4600A;
+  text-shadow: none;
+}
+
+body.light .features-title {
+  color: #1a1a2e;
+}
+
+body.light .card h3,
+body.light .middle h3 {
+  color: #1a1a2e;
+}
+
+body.light .card p,
+body.light .middle p {
+  color: #444;
+}
+
+body.light .about-title {
+  color: #1a1a2e;
+}
+
+body.light .about-desc {
+  color: #444;
+}
+
+body.light .stat-number {
+  color: #D4600A;
+}
+
+body.light .stat-label {
+  color: #444;
+}
+
+body.light .dark-btn {
+  background: #1a1a2e;
+  color: #fff;
+  border-color: rgba(0,0,0,0.2);
+}
+
+body.light .about-section {
+  background: #FDF8F0;
+  border-color: rgba(0,0,0,0.1);
+}
+
+body.light .card,
+body.light .middle {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.1);
+}
+
+/* Light Mode Background Overrides */
 /* Main body background — replaces the dark grid pattern */
 body.light {
   background: #f5f5f0;
@@ -2459,6 +2519,137 @@ body.light footer a:hover {
   text-shadow: none;
 }
 
+/* Light Mode — Home Page Vibrant Theme */
+
+body.light {
+  background: #FDF6EC;
+  color: #1a1a2e;
+}
+
+body.light h1 {
+  color: #1a1a2e;
+}
+
+body.light p1,
+body.light p2 {
+  color: #3d3d3d;
+}
+
+body.light .highlight {
+  color: #D4600A;
+  text-shadow: 0 0 20px rgba(212, 96, 10, 0.2);
+}
+
+body.light .strike {
+  color: #888;
+  text-decoration-color: rgba(212, 96, 10, 0.5);
+}
+
+body.light .wave {
+  text-shadow: 0 0 15px rgba(255, 200, 0, 0.5);
+}
+
+body.light .dark-btn {
+  background: #D4600A;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(212, 96, 10, 0.3);
+}
+
+body.light .dark-btn:hover {
+  background: #b84f08;
+}
+
+body.light .features-title {
+  color: #1a1a2e;
+}
+
+body.light .features-items {
+  color: #666;
+}
+
+body.light .card,
+body.light .middle {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+body.light .card:hover,
+body.light .middle:hover {
+  box-shadow: 0 8px 30px rgba(212, 96, 10, 0.15);
+  border-color: rgba(212, 96, 10, 0.2);
+}
+
+body.light .card h3,
+body.light .middle h3 {
+  color: #1a1a2e;
+}
+
+body.light .card p,
+body.light .middle p {
+  color: #555;
+}
+
+body.light .card a,
+body.light .middle a {
+  color: #D4600A;
+}
+
+body.light .about-section {
+  background: #1a1a2e;
+  border-color: rgba(0,0,0,0.1);
+}
+
+body.light .pill-soon {
+  background: rgba(212, 96, 10, 0.1);
+  border: 1px solid rgba(212, 96, 10, 0.3);
+  color: #D4600A;
+}
+
+body.light .about-title {
+  color: #ffffff;
+}
+
+body.light .about-desc {
+  color: #aaa;
+}
+
+body.light .about-badge {
+  background: rgba(212, 96, 10, 0.15);
+  border-color: rgba(212, 96, 10, 0.3);
+  color: #D4600A;
+}
+
+body.light .stat-number {
+  color: #D4600A;
+}
+
+body.light .stat-label {
+  color: #aaa;
+}
+
+body.light .stat-card {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+}
+
+body.light .section-blob {
+  background: rgba(212, 96, 10, 0.04);
+  border-color: rgba(212, 96, 10, 0.1);
+}
+
+body.light .label {
+  background-image: linear-gradient(90deg, #D4600A, #f5a623);
+}
+
+body.light .scroll-indicator {
+  color: #888;
+}
+
+body.light .scroll-indicator i {
+  color: #D4600A;
+}
 
 /* Author: Andre Nunes da Silva @ 05/02/26 — review image attachment UI */
 .review-image-row {
