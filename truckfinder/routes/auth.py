@@ -4,7 +4,7 @@ David Liberatore
 This authorizes users to login
 """
 
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, redirect, url_for, render_template
 from flask_login import login_user
 from werkzeug.security import check_password_hash
 from truckfinder.forms import LoginForm
@@ -12,6 +12,7 @@ from truckfinder import login_manager
 from truckfinder.models import User
 
 auth_bp = Blueprint("auth", __name__)
+
 
 @login_manager.user_loader
 def load_user(user_id):

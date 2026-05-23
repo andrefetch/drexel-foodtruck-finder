@@ -34,10 +34,19 @@ def create_app():
     admin.add_view(SecureModelView(FoodTruckHours, db.session))
     admin.add_view(SecureModelView(SubmittedTruck, db.session))
 
-    from truckfinder.auth import auth_bp
+    from truckfinder.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
 
-    from truckfinder import routes
-    app.register_blueprint(routes.bp)
+    from truckfinder.routes.pages import pages_bp
+    from truckfinder.routes.api import api_bp
+    from truckfinder.routes.reviews import reviews_bp
+    from truckfinder.routes.admin import admin_bp
+    from truckfinder.routes.exports import exports_bp
+
+    app.register_blueprint(pages_bp)
+    app.register_blueprint(api_bp)
+    app.register_blueprint(reviews_bp)
+    app.register_blueprint(admin_bp)
+    app.register_blueprint(exports_bp)
 
     return app

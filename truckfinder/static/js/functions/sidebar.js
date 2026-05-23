@@ -104,12 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.trucksLoaded) { // flag indicating markers exist
             clearInterval(waitForMarkers); // stop checking once markers are ready
 
-            // Fetch the list of food trucks from your API
-            fetch("/api/food_trucks")
-                .then(res => res.json()) // convert response to JSON
-                .then(trucks => {
-                    // Loop through each truck to create a sidebar button
-                    trucks.forEach(truck => {
+            const trucks = window.trucks || [];
+            // Loop through each truck to create a sidebar button
+            trucks.forEach(truck => {
                         const btn = document.createElement("button"); // create button element
                         btn.className = "truck-btn"; // add CSS class for styling
                         btn.dataset.truckId = truck.id; // needed for favorites filtering
@@ -139,51 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
                             const marker = window.markers[truck.id]; // find corresponding marker
                             if (!marker) return; // if marker not found, do nothing
 
-                            // Open the popup for the marker
-                            marker.openPopup();
-
-                            // Get the popup DOM element so we can measure its height
-                            const popupContainer = marker.getPopup().getElement();
-                            if (!popupContainer) {
-                                // Fallback: if popup element isn't ready, fly to marker directly
-                                map.flyTo(
-                                    marker.getLatLng(),
-                                    18,
-                                    {
-                                        duration: 1
-                                        }
-                                );
-                                return;
-                            }
-
-                            const targetZoom = 18;
-                            // Convert the marker's lat/lng to pixel coordinates at current zoom
-                            const px = map.project(marker.getLatLng(), targetZoom);
-
-                            // Adjust the vertical pixel coordinate by half the popup height
-                            // This ensures the popup is centered vertically above the marker
-                            px.y -= popupContainer.clientHeight / 2 + 80;
-
-                            // Convert the adjusted pixel coordinates back to lat/lng
-                            const centeredLatLng = map.unproject(px, targetZoom);
-
-                            // Pan the map to the new coordinates at the current zoom level
-                            // This ensures the popup is fully visible and centered
-                            map.flyTo(
-                                centeredLatLng,
-                                targetZoom,
-                                {
-                                    duration: 1.1
-                                }
-                            );
+                            focusTruckMarker(marker);
                         });
 
-                        // Add the truck button to the sidebar container
-                        truckList.appendChild(btn);
-                        // runs filters once after all trucks are loaded so the "Showing X trucks" label is accurate on first load
-                        applyFilters();
-                    });
-                });
+                // Add the truck button to the sidebar container
+                truckList.appendChild(btn);
+            });
+            // runs filters once after all trucks are loaded so the "Showing X trucks" label is accurate on first load
+            applyFilters();
         }
     }, 100); // check every 100ms until markers exist
 

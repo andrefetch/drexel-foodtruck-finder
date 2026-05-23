@@ -117,6 +117,89 @@ function buildHoursList(hours) {
 }
 
 window.markers = {};
+window.trucks = [];
+window.lastTruckPopupHeight = 320;
+const POPUP_CENTER_DURATION = 0.9;
+const POPUP_VERTICAL_OFFSET = -120;
+const POPUP_PREOPEN_HEIGHT = 320;
+
+function focusTruckMarker(marker, targetZoom = 18) {
+    if (!marker) return;
+
+    map.closePopup();
+    map.stop();
+
+    setTimeout(() => {
+        const targetLatLng = getCenteredPopupLatLng(marker.getLatLng(), targetZoom, POPUP_PREOPEN_HEIGHT);
+        let didOpen = false;
+
+        function openFocusedPopup() {
+            if (didOpen) return;
+            didOpen = true;
+            window.skipNextPopupCenter = true;
+            marker.openPopup();
+        }
+
+        map.once("moveend", openFocusedPopup);
+        map.flyTo(targetLatLng, targetZoom, {
+            animate: true,
+            duration: POPUP_CENTER_DURATION,
+            easeLinearity: 0.5
+        });
+        setTimeout(openFocusedPopup, POPUP_CENTER_DURATION * 1000 + 150);
+    }, 50);
+}
+
+function getCenteredPopupLatLng(latLng, targetZoom, popupHeight) {
+    const mapSize = map.getSize();
+    const desiredMarkerPoint = L.point(
+        mapSize.x / 2,
+        mapSize.y / 2 - POPUP_VERTICAL_OFFSET + popupHeight / 2
+    );
+
+    return getMapCenterForMarkerPoint(latLng, targetZoom, desiredMarkerPoint);
+}
+
+function getMapCenterForMarkerPoint(latLng, targetZoom, desiredMarkerPoint) {
+    const mapSize = map.getSize();
+    const markerProjected = map.project(latLng, targetZoom);
+    const centerProjected = markerProjected.subtract(
+        desiredMarkerPoint.subtract(L.point(mapSize.x / 2, mapSize.y / 2))
+    );
+
+    return map.unproject(centerProjected, targetZoom);
+}
+
+function centerTruckPopup(popup, targetZoom = map.getZoom(), duration = POPUP_CENTER_DURATION) {
+    const popupElement = popup.getElement();
+    const popupLatLng = popup.getLatLng();
+    if (!popupElement || !popupLatLng) return;
+
+    const popupHeight = popupElement.offsetHeight || popupElement.clientHeight || window.lastTruckPopupHeight;
+    window.lastTruckPopupHeight = popupHeight;
+
+    const mapRect = map.getContainer().getBoundingClientRect();
+    const popupRect = popupElement.getBoundingClientRect();
+    const popupCenterPoint = L.point(
+        popupRect.left - mapRect.left + popupRect.width / 2,
+        popupRect.top - mapRect.top + popupRect.height / 2
+    );
+    const markerPoint = map.latLngToContainerPoint(popupLatLng);
+    const markerToPopupCenter = markerPoint.subtract(popupCenterPoint);
+    const mapSize = map.getSize();
+    const desiredPopupCenter = L.point(
+        mapSize.x / 2,
+        mapSize.y / 2 - POPUP_VERTICAL_OFFSET
+    );
+    const desiredMarkerPoint = desiredPopupCenter.add(markerToPopupCenter);
+
+    map.stop();
+    map.flyTo(getMapCenterForMarkerPoint(popupLatLng, targetZoom, desiredMarkerPoint), targetZoom, {
+        animate: true,
+        duration: duration,
+        easeLinearity: 0.5
+    });
+}
 
 // Fetch trucks from backend
 fetch('/api/food_trucks')
@@ -125,6 +208,7 @@ fetch('/api/food_trucks')
     .then(response => response.json())
     // This then returns actual data
     .then(data => {
+        window.trucks = data;
         // This loops through every truck
         data.forEach(truck => {
 
@@ -178,10 +262,12 @@ fetch('/api/food_trucks')
                     className: 'pin-popup', // class name to customize the pin's contents
                     maxWidth: 250,
                     maxHeight: 450,
-                    autoPan: true
+                    autoPan: false
                 })
                 //Added next line by Alex Troeschel on 4/8/2026 @ 8:40PM
                 .bindTooltip(`<h3>${truck.name}</h3>`, {direction: 'top', offset: [0, -47], className: 'pin-popup'});
+            marker.off("click");
+            marker.on("click", () => focusTruckMarker(marker));
             // Stores the marker in global object
             window.markers[truckId] = marker;
         });
@@ -191,13 +277,16 @@ fetch('/api/food_trucks')
 
 // Tells the map that whenever someone opens a popup, run this function
 map.on('popupopen', function(e) {
-    let px = map.project(e.target._popup._latlng);
-    px.y -= e.target._popup._container.clientHeight / 2 + 80;
-    map.panTo(map.unproject(px), { animate: true });
-
-    const content = e.target._popup._content;
+    const content = e.popup.getContent();
     const match = typeof content === 'string' ? content.match(/rating-anchor-(\d+)/) : null;
-    if (match) loadRatingIntoPopup(parseInt(match[1]));
+    if (!match) return;
+
+    if (window.skipNextPopupCenter) {
+        window.skipNextPopupCenter = false;
+    } else {
+        centerTruckPopup(e.popup);
+    }
+    loadRatingIntoPopup(parseInt(match[1]));
 });
 
 function onMapClick(e) {
