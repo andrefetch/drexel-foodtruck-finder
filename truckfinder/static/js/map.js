@@ -289,16 +289,18 @@ map.on('popupopen', function(e) {
     loadRatingIntoPopup(parseInt(match[1]));
 });
 
-function onMapClick(e) {
+// Andre Nunes da Silva : Sunset old Coordinate Click.
+
+// function onMapClick(e) {
     //Shows the longitude and latitude when you click somewhere on the map
     //Used to find trucks longitude and latitude on the map easily
-    L.popup()
-        .setLatLng(e.latlng)
-        .setContent("Coordinates: " + e.latlng.toString())
-        .openOn(map);
-}
+    // L.popup()
+       //.setLatLng(e.latlng)
+        // .setContent("Coordinates: " + e.latlng.toString())
+        //.openOn(map);
+// }
 //Runs the onMapClick function when you click on the map and not a button or pin
-map.on('click', onMapClick);
+// map.on('click', onMapClick);
 
 //Gives an alert when there's an error in location
 function onLocationError(e) {

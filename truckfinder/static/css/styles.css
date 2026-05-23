@@ -661,6 +661,25 @@ p2 {
   transform: translateX(0);
 }
 
+.menu-click-ripple {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(61, 130, 33, 0.45);
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: none;
+  animation: menu-click-ripple 0.55s ease-out forwards;
+  z-index: 1100;
+}
+
+@keyframes menu-click-ripple {
+  to {
+    transform: translate(-50%, -50%) scale(7);
+    opacity: 0;
+  }
+}
+
 #close-menu {
   background: none;
   border: none;
@@ -1027,6 +1046,74 @@ html {
     padding-top: 15px;
     border-top: 2px dashed rgba(0,0,0,0.1);
     text-align: right;
+}
+
+#basket-list {
+    text-align: left;
+    margin-bottom: 12px;
+    max-height: 160px;
+    overflow-y: auto;
+    font-family: 'Manrope', sans-serif;
+}
+
+#basket-list:empty::before {
+    content: "No items selected yet";
+    display: block;
+    color: rgba(0,0,0,0.4);
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 4px 0;
+}
+
+.basket-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 4px 2px;
+    border-bottom: 1px dotted rgba(0,0,0,0.12);
+    animation: basket-item-in 0.25s ease-out;
+}
+
+.basket-item:last-child {
+    border-bottom: none;
+}
+
+.basket-item-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.basket-item-price {
+    color: #3d8221;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.basket-item-remove {
+    background: none;
+    border: none;
+    color: rgba(0,0,0,0.35);
+    font-size: 0.95rem;
+    line-height: 1;
+    margin-left: 8px;
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.basket-item-remove:hover {
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.12);
+    transform: scale(1.1);
+}
+
+@keyframes basket-item-in {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 #grand-total {

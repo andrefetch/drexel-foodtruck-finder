@@ -25,6 +25,39 @@ function closeMenuPanel() {
 // When the user clicks the x, the panel closes
 closeBtn.addEventListener("click", closeMenuPanel);
 
+// Andre Nunes da Silva 05/23/26
+menuContent.addEventListener("click", (event) => {
+  const item = event.target.closest(".menu-item");
+  if (!item) return;
+  addToTotal(item.dataset.name, item.dataset.price);
+});
+
+// HTML-escape user-supplied values before they go into innerHTML / attributes.
+// Andre Nunes da Silva 05/23/26
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Spawns a ripple at the cursor position so the user gets visible feedback
+// for every click inside the menu area.
+// Andre Nunes da Silva 05/23/26
+menuPanel.addEventListener("click", (event) => {
+  const ripple = document.createElement("span");
+  ripple.className = "menu-click-ripple";
+  const panelRect = menuPanel.getBoundingClientRect();
+  const x = event.clientX - panelRect.left + menuPanel.scrollLeft;
+  const y = event.clientY - panelRect.top + menuPanel.scrollTop;
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+  menuPanel.appendChild(ripple);
+  ripple.addEventListener("animationend", () => ripple.remove());
+});
+
 function showMenu(truckId) {
   //Calls the open panel function
   openMenuPanel();
@@ -49,21 +82,25 @@ function renderMenu(items) {
   let html = "";
   // Loops over each menu item
   items.forEach(item => {
-    // Builds HTML using menu data
+    // Builds HTML using menu data. Name + price live on data-* so the
+    // delegated click handler can read them without inline JS.
+    const safeName = escapeHtml(item.name);
+    const safePrice = escapeHtml(item.price);
     html += `
-    <div class="menu-item" role="button" onclick="addToTotal('${item.price}')">
+    <div class="menu-item" role="button" data-name="${safeName}" data-price="${safePrice}">
         <h4>
-            <span>${item.name}</span>
-            <span class='price'>$${item.price}</span>
+            <span>${safeName}</span>
+            <span class='price'>$${safePrice}</span>
             </h4>
       </div>
     `;
   });
-  //Adds to the html the bottom of the menu, where the total of all
-  //selected options is displayed
+  //Adds to the html the bottom of the menu: the basket list of selected
+  //items followed by the running total.
   html += `
   </div>
   <div id="receipt-bottom">
+  <div id="basket-list"></div>
   <div class="total-row">
     <span>Estimated Total:</span>
     <span id="grand-total">$0.00</span>
