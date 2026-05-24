@@ -1,18 +1,18 @@
 name,cuisine,latitude,longitude,description
-Nanu's Hot Chicken,Halal,39.956121,-75.189443,Mon-Sun: 10:00 AM - 2:40 AM
-Chicken Land,Halal,39.956788,-75.19132,Mon-Sun: 10:00 AM - 3:00 AM
-Pete's Little Lunch Box,Breakfast,39.957641,-75.189384,Mon-Sun: 8:00 AM - 2:00 PM
-Halal Taste Cart,Halal,39.957,-75.188,Mon-Sun: 9:00 AM - 10:30 PM
-Philly Halal Gyro,Halal,39.956,-75.193,Mon-Wens: 9:30 AM - 6:30 PM Thurs: 9:30AM - 12:00 AM Fri: 9:00 AM - 6:30 PM
-Acai Express, Dessert,39.956919,-75.191288, TempValue
-Indian Halal, Halal,39.95717,-75.191127, TempValue
-Red Truck, Halal,39.956384,-75.189389, TempValue
-KC's Fresh Fruit and Smoothies, Dessert,39.956325,-75.1894, TempValue
-Mega Food Truck, Halal,39.955807,-75.189518, TempValue
-Yellow Truck, Halal,39.955663,-75.189539, TempValue
-West River Asian Cuisine, Asian,39.954972,-75.189668, TempValue
-Friendly Tasty Dishes, Halal,39.954328,-75.189614, TempValue
-Philly Halal Food, Halal,39.954973,-75.189522, TempValue
-First In Philly, Halal,39.955132,-75.189505, TempValue
-Halal Flame Wok, Halal,39.955704,-75.189842, TempValue
-Mr. Seasoning, Halal,39.956886,-75.191296, TempValue
+Nanu's Hot Chicken,Halal-Chicken-Dessert-,39.956121,-75.189443,Mon-Sun: 10:00 AM - 2:40 AM
+Chicken Land,Halal-Chicken-Dessert-,39.956788,-75.19132,Mon-Sun: 10:00 AM - 3:00 AM
+Pete's Little Lunch Box,Breakfast-,39.957641,-75.189384,Mon-Sun: 8:00 AM - 2:00 PM
+Halal Taste Cart,Halal-,39.957,-75.188,Mon-Sun: 9:00 AM - 10:30 PM
+Philly Halal Gyro,Halal-,39.956,-75.193,Mon-Wens: 9:30 AM - 6:30 PM Thurs: 9:30AM - 12:00 AM Fri: 9:00 AM - 6:30 PM
+Acai Express,Dessert-,39.956919,-75.191288,TempValue
+Indian Halal,Halal-,39.95717,-75.191127,TempValue
+Red Truck,Halal-,39.956384,-75.189389,TempValue
+KC's Fresh Fruit and Smoothies,Dessert-,39.956325,-75.1894,TempValue
+Mega Food Truck,Halal-Dessert-,39.955807,-75.189518,TempValue
+Yellow Truck,Halal-,39.955663,-75.189539,TempValue
+West River Asian Cuisine,Asian-,39.954972,-75.189668,TempValue
+Friendly Tasty Dishes,Halal-,39.954328,-75.189614,TempValue
+Philly Halal Food,Halal-,39.954973,-75.189522,TempValue
+First In Philly,Halal-,39.955132,-75.189505,TempValue
+Halal Flame Wok,Halal-,39.955704,-75.189842,TempValue
+Mr. Seasoning,Halal-,39.956886,-75.191296,TempValue
