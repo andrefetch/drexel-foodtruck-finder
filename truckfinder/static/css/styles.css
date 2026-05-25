@@ -2609,8 +2609,24 @@ body.light footer a:hover {
 /* Light Mode — Home Page Vibrant Theme */
 
 body.light {
-  background: #FDF6EC;
   color: #1a1a2e;
+  background:
+    fixed linear-gradient(#e8d5a3, #e8d5a3 6px, transparent 6px, transparent),
+    fixed linear-gradient(transparent, #fdf3e3 70%),
+    fixed repeating-linear-gradient(
+      #e8d5a3,
+      #e8d5a3 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    scroll repeating-linear-gradient(
+      to right,
+      #e8d5a3,
+      #e8d5a3 1px,
+      transparent 1px,
+      transparent 40px
+    )
+    #fef9f0;
 }
 
 body.light h1 {
