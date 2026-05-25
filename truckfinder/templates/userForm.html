@@ -26,7 +26,27 @@
     // Default center (Philly area since you're at Drexel)
     const map = L.map("mini_map").setView([39.9566, -75.1899], 16.5);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
+    // Returns the correct tile URL based on current theme
+    // Light mode = dark map, Dark mode = light map (inverted by design)
+    function getMiniTileUrl() {
+        return localStorage.getItem("theme") === "light"
+            ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+            : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    }
+
+    // Initialize map tiles based on current theme
+    const miniTiles = L.tileLayer(getMiniTileUrl()).addTo(map);
+
+    // Watch for class changes on body (triggered by theme.js when user toggles)
+    // Automatically swaps tiles whenever light/dark class is added or removed
+    const observer = new MutationObserver(function() {
+        miniTiles.setUrl(getMiniTileUrl()).redraw();
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
 
     let marker = null;
 
@@ -43,13 +63,14 @@
 
         updateInputs(lat, lng);
 
-        // Allow fine-tuning
+        // Allow fine-tuning by dragging the marker
         marker.on('dragend', function() {
             const pos = marker.getLatLng();
             updateInputs(pos.lat, pos.lng);
         });
     });
 
+    // Updates the hidden form fields with the selected coordinates
     function updateInputs(lat, lng) {
         document.getElementById("latitude").value = lat;
         document.getElementById("longitude").value = lng;
