@@ -23,6 +23,11 @@ def about():
 def guide():
     return render_template('userGuide.html', title="User Guide")
 
+# Alex Troeschel : New route for system manual. 05/24/26
+@pages_bp.route('/sysmanual')
+def sysmanual():
+    return render_template('systemManual.html', title="System Manual")
+
 @pages_bp.route("/userForm", methods=["GET", "POST"])
 def userForm():
     form = FoodTruckForm()

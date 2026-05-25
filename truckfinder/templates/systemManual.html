@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- Author: Alex Troeschel, 05/24/26-->
+<section class="user-guide">
+  <header class="guide-header">
+    <h1>How to use <span class="highlight">Foodtruck Finder</span></h1>
+    <p class="guide-sub">Please refer to readme.md to install and run Foodtruck Finder locally</p>
+    <p class="guide-sub">A walkthrough of admin features and responsibilities</p>
+  </header>
+
+  <div class="guide-item">
+    <h3>System Requirements</h3>
+    <p>TBD. You must be able to run a browser, such as google chrome, edge, firefox, etc. Internet connection isn't required.</p>
+  </div>
+
+  <h2 class="guide-group-title">Maintenance</h2>
+
+  <div class="guide-item">
+    <h3>Navigating the Database</h3>
+    <p>Using an extension like "SQLite DB Viewer" in VSCode, you can view the database in a readable format. To update the database, it pulls from the .csv files found in "/data". Here, you can update the times of a foodtruck, add items, change the location, etc. For an easier way to update foodtrucks, please refer to the admin section later.</p>
+    <p>Food trucks are given an ID in an INTEGER format, name and cuisine both in VARCHAR(100) (strings with 100 characters max) where cuisine is allowed to be null, latitude and longitude are in FLOAT format, description is in the TEXT format (string with no character limit), and is_hidden is in the BOOLEAN format (false if it should appear on the map, true if not). For hours, they have an ID and day attached (where ID is the same as before, and day is an integer with 0 being Monday and 6 being Sunday) along with the hours for that day in a TIME format (Hour:Minute). For the menu items, each integer ID is tied to a VARCHAR(100) name for the item, a FLOAT for the price, and an integer truck_id for the truck the item is sold at. When pulling this information through javascript, follow the fetch (as seen in map.js lines 120-188, focus on 120-128), and you can access each piece of info with an attribute call such as "truck.cuisine".</p>
+  </div>
+
+  <div class="guide-item">
+    <h3>Admin Page</h3>
+    <p>The admin page allows you to access submitted trucks and accept/decline them. While menu/cuisine/time info has to be found by someone on the team, the location and name can be given by a user. To access this page, change the / at the end to "/admin". You will be prompted to log in.</p>
+    <p>The admin page also gives you an easy way to update the database. On the home page, merge approved trucks adds and hides every user submission. Update CSV files makes sure all info is up to date. On the food truck tab, you can easily edit, remove, and add food trucks, with the menu item and food truck hours tabs being other places to update the csv files. This makes updating the database easy. In the submitted truck tab, you can find food trucks that users have submitted, and approve or deny them.</p>
+  </div>
+
+  <h2 class="guide-item">Help</h2>
+
+  <div class="guide-item">
+    <h3>Contact Us</h3>
+    <p>Please reach out to us if you have any issues! You can send us an email, and expect a response in ~2-3 business days. Our contact info and roles are given below:</p>
+    <p>Andre Nunes da Silva, Fullstack Developer: an3243@drexel.edu</p>
+    <p>Alex Troeschel, Frontend Developer: at3698@drexel.edu</p>
+    <p>David Liberatore, Backend Developer: dal366@drexel.edu</p>
+    <p>Maisha Sultana, Website Developer: ms5529@drexel.edu</p>
+    <p>You can also find this information on the About page of the website. Please note that Kyle Cuba is no longer an active contributor to the project and should not be reached out to for information regarding the website.</p>
+  </div>
+</section>
+{% endblock %}

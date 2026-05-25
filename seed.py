@@ -2,6 +2,7 @@ from truckfinder import create_app, db
 from seeds.food_trucks import seed_food_trucks
 from seeds.menu_items import seed_menu_items
 from seeds.food_truck_hours import seed_food_truck_hours
+from seeds.seed_admin import seed_admin
 
 app = create_app()
 
@@ -20,6 +21,7 @@ if __name__ == "__main__":
         seed_food_trucks()
         seed_menu_items()
         seed_food_truck_hours()
+        seed_admin()
 
         # Prints this message when done
         print("Database reset and seeded successfully!")

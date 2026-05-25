@@ -12,17 +12,18 @@ from werkzeug.security import generate_password_hash
 
 app = create_app()
 
-with app.app_context():
+def seed_admin():
+    with app.app_context():
 
-    if not User.query.filter_by(username="admin").first():
+        if not User.query.filter_by(username="admin").first():
 
-        user = User(
-            username="admin",
-            password_hash=generate_password_hash("password123"),
-            is_admin=True
-        )
+            user = User(
+                username="admin",
+                password_hash=generate_password_hash("password123"),
+                is_admin=True
+            )
 
-        db.session.add(user)
-        db.session.commit()
+            db.session.add(user)
+            db.session.commit()
 
-        print("Admin created")
+            print("Admin created")

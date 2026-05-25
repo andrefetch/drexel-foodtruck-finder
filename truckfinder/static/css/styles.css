@@ -414,12 +414,12 @@ p2 {
   transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
 }
 .light .slider::-webkit-slider-thumb {
-  background: #0f4d92;
+  background: white;
   border-color: #0f4d92;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .light .slider::-moz-range-thumb {
-  background: #0f4d92;
+  background: white;
   border-color: #0f4d92;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
