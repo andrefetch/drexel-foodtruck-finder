@@ -4,7 +4,7 @@ const openIcon = L.icon({
   iconUrl: '/static/images/unsaturated.png',   
   iconSize: [40, 40],                        
   iconAnchor: [20, 40],                   
-  popupAnchor: [0, -40],                      
+  popupAnchor: [0, -20],
 });
 
 // This is the icon if the truck is closed
@@ -13,7 +13,7 @@ const closedIcon = L.icon({
   iconUrl: '/static/images/saturated.png',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
-  popupAnchor: [0, -40],
+  popupAnchor: [0, -20],
 });
 
 //Swaps between light and dark mode by changing the map url the tiles pull from

@@ -52,6 +52,33 @@ body::before {
   animation: backgroundDrift 12s ease-in-out infinite alternate;
 }
 
+html.light body {
+  color: #1a1a2e;
+  background:
+    fixed linear-gradient(#e8d5a3, #e8d5a3 6px, transparent 6px, transparent),
+    fixed linear-gradient(transparent, #fdf3e3 70%),
+    fixed repeating-linear-gradient(
+      #e8d5a3,
+      #e8d5a3 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    scroll repeating-linear-gradient(
+      to right,
+      #e8d5a3,
+      #e8d5a3 1px,
+      transparent 1px,
+      transparent 40px
+    )
+    #fef9f0;
+}
+
+html.light body::before {
+  background:
+      radial-gradient(circle at 20% 30%, rgba(0, 75, 73, 0.06), transparent 22%),
+      radial-gradient(circle at 75% 45%, rgba(0, 75, 73, 0.04), transparent 20%);
+}
+
 @keyframes backgroundDrift {
   0% {
     transform: translate(0px, 0px) scale(1);
@@ -1289,6 +1316,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   width: 100%;
   padding: 11px 16px;
   border: none;
@@ -1300,6 +1328,12 @@ html {
   transition: all 0.2s ease;
   color: #1a1a2e;
   font-weight: 500;
+}
+
+.truck-btn > span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 /* Override popup-specific positioning when bookmark is inside a sidebar row */
@@ -1714,14 +1748,21 @@ footer a:hover {
 
 .popup-header {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 32px;
+    padding: 0 18px;
     margin-bottom: 8px;
+    text-align: center;
+}
+
+.popup-header h3 {
+    margin: 0;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
 }
 
 .favorite-button {
     position: absolute;
+    top: 0;
     left: 0;
     background: none;
     border: none;
@@ -1729,6 +1770,16 @@ footer a:hover {
     font-size: 1.1rem;
     color: #aaa;
     transition: color 0.2s ease;
+}
+
+.pin-popup .popup-header .favorite-button {
+    top: -4px;
+    left: -6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .favorite-button:hover {

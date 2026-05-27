@@ -4,13 +4,18 @@
 const modeBtn = document.getElementById("mode-swap");
 var isLight = false;
 
+function setLightMode(enabled) {
+    document.documentElement.classList.toggle("light", enabled);
+    document.body.classList.toggle("light", enabled);
+}
+
 // Restores saved theme from localStorage when page loads
 // So if user was in light mode and refreshes, it stays light
 function restoreTheme() {
     const saved = localStorage.getItem("theme");
     if (saved === "light") {
         isLight = true;
-        document.body.classList.add("light");
+        setLightMode(true);
         modeBtn.innerHTML = `<i class="fas fa-moon"></i>`;
 
         // If on map page, also swap map tiles
@@ -24,7 +29,7 @@ function swapModes() {
     if (isLight === false) {
         // Switch to light mode
         isLight = true;
-        document.body.classList.add("light");
+        setLightMode(true);
         modeBtn.innerHTML = `<i class="fas fa-moon"></i>`;
         localStorage.setItem("theme", "light");
 
@@ -43,7 +48,7 @@ function swapModes() {
     } else {
         // Switch to dark mode
         isLight = false;
-        document.body.classList.remove("light");
+        setLightMode(false);
         modeBtn.innerHTML = `<i class="fas fa-sun"></i>`;
         localStorage.setItem("theme", "dark");
 
