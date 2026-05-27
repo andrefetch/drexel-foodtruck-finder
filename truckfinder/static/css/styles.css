@@ -76,6 +76,31 @@ nav {
   z-index: 999;
 }
 
+.flash-messages {
+  width: min(92%, 760px);
+  margin: 0 auto 1.25rem;
+}
+
+.flash-message {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-weight: 700;
+  text-align: center;
+}
+
+.flash-success {
+  color: #d8ffe6;
+  background: rgba(26, 127, 55, 0.22);
+  border-color: rgba(93, 214, 130, 0.5);
+}
+
+.flash-error {
+  color: #ffe2e2;
+  background: rgba(185, 28, 28, 0.24);
+  border-color: rgba(248, 113, 113, 0.5);
+}
+
 .logo {
   font-size: 1.8rem;
   font-weight: 700;

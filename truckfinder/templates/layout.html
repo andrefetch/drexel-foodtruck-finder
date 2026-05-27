@@ -26,6 +26,15 @@
             <li><a href="{{ url_for('main.userForm') }}">Truck Submissions</a></li>
         </ul>
     </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     <!--The html for other pages is put here when rendering, so that the above html is consistent-->
     {%block content%}
     {%endblock%}

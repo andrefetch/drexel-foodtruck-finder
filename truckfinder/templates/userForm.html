@@ -2,7 +2,7 @@
 {% block content%}
 <h2 id="form_title">Add a Food Truck</h2>
 
-<form method="POST">
+<form method="POST" novalidate>
     {{ form.hidden_tag() }}
 
     {{ form.name.label(class="form-label") }}<br>

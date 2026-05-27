@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify
+from flask import Blueprint, render_template, redirect, url_for, jsonify, flash, request
 from truckfinder.models import SubmittedTruck, FoodTruck, MenuItem
 from truckfinder import db
 from sqlalchemy import func
@@ -33,16 +33,31 @@ def userForm():
     form = FoodTruckForm()
 
     if form.validate_on_submit():
+        try:
+            latitude = float(form.latitude.data)
+            longitude = float(form.longitude.data)
+        except (TypeError, ValueError):
+            flash("Please select a valid location on the map before submitting.", "error")
+            return render_template("userForm.html", form=form)
+
+        if not (-90 <= latitude <= 90 and -180 <= longitude <= 180):
+            flash("Please select a valid location on the map before submitting.", "error")
+            return render_template("userForm.html", form=form)
+
         new_truck = SubmittedTruck(
             name=form.name.data,
-            latitude=float(form.latitude.data),
-            longitude=float(form.longitude.data)
+            latitude=latitude,
+            longitude=longitude
         )
 
         db.session.add(new_truck)
         db.session.commit()
 
+        flash("Truck submission received.", "success")
         return redirect(url_for("main.home"))
+
+    if request.method == "POST":
+        flash("Please enter a truck name and select a location on the map.", "error")
 
     return render_template("userForm.html", form=form)
 
