@@ -46,16 +46,6 @@ def userForm():
 
     return render_template("userForm.html", form=form)
 
-# This is just for development stages
-# Gets rid of all submissions
-@pages_bp.route("/reset_submissions")
-def reset_submissions():
-    SubmittedTruck.query.delete()
-
-    db.session.commit()
-
-    return "Submitted trucks reset!"
-
 @pages_bp.route("/stats/api", methods=["GET"])
 def stats_api():
     truck_count = FoodTruck.query.filter_by(is_hidden=False).count()

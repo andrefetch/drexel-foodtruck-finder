@@ -1,7 +1,14 @@
 from flask import Blueprint, jsonify
+from flask_login import current_user
 from truckfinder.models import SubmittedTruck, FoodTruck
 
 admin_bp = Blueprint("admin_api", __name__)
+
+
+def admin_required_json():
+    if not current_user.is_authenticated or not current_user.is_admin:
+        return jsonify({"error": "Admin access required"}), 403
+    return None
 
 # David Liberatore
 # 5/1/2026
@@ -9,6 +16,10 @@ admin_bp = Blueprint("admin_api", __name__)
 # This returns all the submitted trucks data
 @admin_bp.route("/api/submitted_trucks")
 def get_submitted_trucks():
+    access_error = admin_required_json()
+    if access_error:
+        return access_error
+
     trucks = SubmittedTruck.query.all()
     data = []
     for truck in trucks:
@@ -25,6 +36,10 @@ def get_submitted_trucks():
 # Sees all the trucks in the main foodtrucks
 @admin_bp.route("/api/food_trucks_admin")
 def get_food_trucks_admin():
+    access_error = admin_required_json()
+    if access_error:
+        return access_error
+
     trucks = FoodTruck.query.all()  # no is_hidden filter
     data = []
     for truck in trucks:
