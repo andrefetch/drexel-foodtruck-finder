@@ -3044,6 +3044,18 @@ nav {
   position: relative;
 }
 
+.light .guide-group-title,
+.light .user-guide,
+.light .guide-header,
+.light .guide-eyebrow,
+.light .user-guide h1,
+.light .guide-sub,
+.light .guide-group-sub,
+.light .guide-item,
+.light .guide-item h3,
+.light .guide-item h3 i,
+.light .guide-item p {  color: black;   }
+
 .guide-group-title::before,
 .guide-group-title::after {
   content: "";
@@ -3053,6 +3065,11 @@ nav {
   background: rgba(244, 244, 237, 0.2);
   vertical-align: middle;
   margin: 0 14px;
+}
+
+.light .guide-group-title::before,
+.light .guide-group-title::after {
+  background: black;
 }
 
 .guide-group-sub {
