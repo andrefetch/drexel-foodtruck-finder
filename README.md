@@ -33,8 +33,8 @@ Follow these steps to run this project locally
 1. Clone Repository
 
 ```bash
-git clone https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map.git
-cd drexel-food-truck-interactive-map
+git clone https://github.com/andrefetch/drexel-foodtruck-finder.git
+cd drexel-foodtruck-finder
 ```
 
 2. Create and Activate a Virtual Environment
@@ -91,4 +91,4 @@ We plan on adding a reviews system in the future, along with adding more food tr
 - Kyle Cuba - Website Developer, HTML / CSS
 
 ## License
-[MIT](https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map/-/blob/main/LICENSE?ref_type=heads)
+[MIT](https://github.com/andrefetch/drexel-foodtruck-finder/blob/main/LICENSE)
