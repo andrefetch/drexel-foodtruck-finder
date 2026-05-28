@@ -7,8 +7,8 @@ To run the project locally:
 1. Clone the Repository
 
 ```bash
-git clone https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map.git
-cd drexel-food-truck-interactive-map
+git clone https://github.com/andrefetch/drexel-foodtruck-finder.git
+cd drexel-foodtruck-finder
 ```
 
 2. Have an Active Virtual Environment

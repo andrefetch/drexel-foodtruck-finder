@@ -4,8 +4,8 @@ Follow these steps to run this project locally
 1. Clone Repository
 
 ```bash
-git clone https://gitlab.cci.drexel.edu/cid/2526/ws1023/62/gc3/drexel-food-truck-interactive-map.git
-cd drexel-food-truck-interactive-map
+git clone https://github.com/andrefetch/drexel-foodtruck-finder.git
+cd drexel-foodtruck-finder
 ```
 
 2. Create and Activate a Virtual Environment
@@ -52,13 +52,13 @@ Hold ctrl and click on either link. The website will open to the "Home" page.
 
 ### General Page Info
 At the very top of the page, you will find the header. You can click "Home" for the home page, "Map" for the map page, "About" for the about page, or "Truck Submissions" for the forms page. This navigation bar is on each page.
-At the very bottom of the page, you can find the footer. From here, you can click "Open Sourced" for the gitlab page, or "Contact Us" to contact us directly. This footer is on each page.
+At the very bottom of the page, you can find the footer. From here, you can click "Open Sourced" for the github page, or "Contact Us" to contact us directly. This footer is on each page.
 
 ### Home Page
-On the home page, you can scroll down to find information on our product. If you click on the "View on Gitlab" button, you will be brought to our websites gitlab. Near the top, if you click the "Get Started" button, you will be brought to the "Map" page.
+On the home page, you can scroll down to find information on our product. If you click on the "View on Github" button, you will be brought to our websites github. Near the top, if you click the "Get Started" button, you will be brought to the "Map" page.
 
 ### About Page
-On the "About" page, there is a similar "View on Gitlab" link that leads to our gitlab page. If you scroll down on the "About" page, you can find each of our team members, our roles, and our contact info.
+On the "About" page, there is a similar "View on Github" link that leads to our github page. If you scroll down on the "About" page, you can find each of our team members, our roles, and our contact info.
 
 ### Truck Submissions Page
 On the "Truck Submissions" page, you can submit food trucks you want added to the map. To do this, first fill out the "Truck Name" section with the name of the truck. Then, click on the location on the map where the food truck is. Finally, press submit, and we will be able to see it.
