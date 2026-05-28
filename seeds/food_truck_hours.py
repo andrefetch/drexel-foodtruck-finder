@@ -10,7 +10,7 @@ def seed_food_truck_hours():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/food_truck_hours.csv", newline="", encoding="latin-1") as file:
+        with open("data/food_truck_hours.csv", newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
 
             #Turns it into a dictionary of items, and then adds it to the DB

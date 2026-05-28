@@ -9,9 +9,9 @@ def seed_food_trucks():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/food_trucks.csv", newline="", encoding="latin-1") as file:
+        with open("data/food_trucks.csv", newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
-
+            items = []
             #Turns it into a dictionary of items, and then adds it to the DB
             items = [
                 FoodTruck(
@@ -19,7 +19,8 @@ def seed_food_trucks():
                     cuisine=row["cuisine"],
                     latitude=float(row["latitude"]),
                     longitude=float(row["longitude"]),
-                    description=row["description"]
+                    description=row["description"],
+                    is_hidden=True if row["is_hidden"] == "True" else False
             )
                 # This loops through every CSV row, and skips every empty row
                 for row in reader
