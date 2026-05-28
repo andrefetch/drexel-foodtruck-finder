@@ -4,7 +4,7 @@ from truckfinder.models import MenuItem
 
 def seed_menu_items():
     # Opens the menu items csv and makes it the reader
-    with open("data/menu_items.csv", newline="", encoding="latin-1") as file:
+    with open("data/menu_items.csv", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         # Turns it into a dictionary and then adds it to the db
         items = [
