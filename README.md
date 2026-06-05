@@ -89,6 +89,7 @@ We plan on adding a reviews system in the future, along with adding more food tr
 - Andre Nunes Da Silva - Fullstack Developer, Leaflet Integration, HTML / CSS
 - Alex Troeschel - Data Analyst, Leaflet Integration
 - Kyle Cuba - Website Developer, HTML / CSS
+- Maisha Sultana - Frontend Developer, HTML & CSS
 
 ## License
 [MIT](https://github.com/andrefetch/drexel-foodtruck-finder/blob/main/LICENSE)
