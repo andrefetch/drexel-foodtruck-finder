@@ -1,18 +1,3 @@
-"""
-Vercel serverless entrypoint.
-
-Vercel mounts the deployed code read-only and gives each instance an empty /tmp
-as its only writable directory. So before anything imports the app we point both
-the database and the app's runtime writes at /tmp, then seed the database on
-cold start because /tmp starts out empty.
-
-This has to happen before the `truckfinder` / `seeds` imports below: every seed
-module calls create_app() at import time, and create_app() reads these variables.
-
-NOTE: /tmp does not survive between instances. Anything a visitor writes
-(reviews, ratings, submitted trucks, admin edits) is lost when Vercel recycles
-the instance. This deploy is a demo; use a real database to keep data.
-"""
 import os
 
 os.environ.setdefault("DATABASE_URL", "sqlite:////tmp/truckfinder/site.db")
