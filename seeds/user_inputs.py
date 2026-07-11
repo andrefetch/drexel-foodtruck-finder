@@ -4,6 +4,7 @@ import csv
 from truckfinder import create_app, db
 from datetime import datetime, date
 from truckfinder.models import SubmittedTruck, TruckRating, TruckReview
+from seeds import data_path
 
 app = create_app()
 
@@ -12,7 +13,7 @@ def seed_submitted_trucks():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/submitted_trucks.csv", newline="", encoding="utf-8") as file:
+        with open(data_path("submitted_trucks.csv"), newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
 
             #Turns it into a dictionary of items, and then adds it to the DB
@@ -42,7 +43,7 @@ def seed_truck_ratings():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/truck_ratings.csv", newline="", encoding="utf-8") as file:
+        with open(data_path("truck_ratings.csv"), newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             items = []
             #Turns it into a dictionary of items, and then adds it to the DB
@@ -72,7 +73,7 @@ def seed_truck_reviews():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/truck_reviews.csv", newline="", encoding="utf-8") as file:
+        with open(data_path("truck_reviews.csv"), newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             items = []
             for row in reader:

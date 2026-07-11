@@ -1,0 +1,14 @@
+# Leaflet is loaded from a CDN in the templates, so the vendored copy is dead
+# weight in the function bundle.
+truckfinder/node_modules
+
+# The deployed app builds its database in /tmp on cold start.
+instance/
+migrations/
+
+.idea/
+.DS_Store
+__pycache__/
+*.pyc
+venv/
+.venv/

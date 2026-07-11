@@ -1,6 +1,7 @@
 import csv
 from truckfinder import create_app, db
 from truckfinder.models import FoodTruck
+from seeds import data_path
 
 app = create_app()
 
@@ -9,7 +10,7 @@ def seed_food_trucks():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/food_trucks.csv", newline="", encoding="utf-8") as file:
+        with open(data_path("food_trucks.csv"), newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
             items = []
             #Turns it into a dictionary of items, and then adds it to the DB

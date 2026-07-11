@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, current_app, jsonify, request, render_template
+from flask import Blueprint, url_for, current_app, jsonify, request, render_template, send_from_directory, abort
 from datetime import datetime
 import os
 import uuid
@@ -15,17 +15,31 @@ reviews_bp = Blueprint("reviews", __name__)
 # cap size at ~5MB so users can't blow up the static folder with huge uploads.
 REVIEW_IMAGE_EXTS = {"png", "jpg", "jpeg", "gif", "webp"}
 REVIEW_IMAGE_MAX_BYTES = 5 * 1024 * 1024
-REVIEW_IMAGE_SUBPATH = os.path.join("uploads", "reviews")
+
+# Reviews uploaded before the upload dir became configurable were stored as
+# "/static/uploads/reviews/<file>" and are still served by Flask's static route.
+LEGACY_IMAGE_PREFIX = "/static/uploads/reviews/"
 
 
 def _review_image_dir():
-    return os.path.join(current_app.static_folder, "uploads", "reviews")
+    return current_app.config["REVIEW_UPLOAD_DIR"]
+
+
+# Uploads no longer necessarily live under static/: on serverless hosts the only
+# writable directory is /tmp, which Flask's static route cannot reach. Serving
+# them through a dedicated route keeps one URL shape that works on every deploy.
+@reviews_bp.route("/media/reviews/<path:filename>")
+def review_image(filename):
+    upload_dir = _review_image_dir()
+    if not os.path.isfile(os.path.join(upload_dir, filename)):
+        abort(404)
+    return send_from_directory(upload_dir, filename)
 
 
 def _save_review_image(file_storage, truck_id, user_id):
-    # Returns the public URL (under /static) for the saved image, or None if no
-    # file was attached. Raises ValueError on validation issues so the caller
-    # can return a 400 with a user-facing message.
+    # Returns the public URL for the saved image, or None if no file was
+    # attached. Raises ValueError on validation issues so the caller can return
+    # a 400 with a user-facing message.
     if not file_storage or not file_storage.filename:
         return None
 
@@ -44,19 +58,32 @@ def _save_review_image(file_storage, truck_id, user_id):
     os.makedirs(upload_dir, exist_ok=True)
     filename = f"{truck_id}_{user_id}_{uuid.uuid4().hex}.{ext}"
     file_storage.save(os.path.join(upload_dir, filename))
-    return url_for("static", filename=f"uploads/reviews/{filename}")
+    return url_for("reviews.review_image", filename=filename)
 
 
 def _delete_review_image(image_url):
     if not image_url:
         return
-    # image_url looks like "/static/uploads/reviews/<file>" — strip the static
-    # prefix so we can resolve it against the configured static_folder.
-    prefix = "/static/"
-    if not image_url.startswith(prefix):
+
+    # Resolve both the current /media/reviews/ URLs and the legacy /static/ ones
+    # back to a path inside the upload dir.
+    if image_url.startswith(LEGACY_IMAGE_PREFIX):
+        filename = image_url[len(LEGACY_IMAGE_PREFIX):]
+        directory = os.path.join(current_app.static_folder, "uploads", "reviews")
+    else:
+        prefix = "/media/reviews/"
+        if not image_url.startswith(prefix):
+            return
+        filename = image_url[len(prefix):]
+        directory = _review_image_dir()
+
+    # secure_filename keeps a crafted image_url in the DB from escaping the
+    # upload dir via "../".
+    filename = secure_filename(filename)
+    if not filename:
         return
-    rel = image_url[len(prefix):]
-    path = os.path.join(current_app.static_folder, rel)
+
+    path = os.path.join(directory, filename)
     if os.path.isfile(path):
         try:
             os.remove(path)

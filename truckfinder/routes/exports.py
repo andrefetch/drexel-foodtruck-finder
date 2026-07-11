@@ -11,7 +11,8 @@ from flask import Blueprint
 from truckfinder.export import (
     export_foodtrucks_to_csv,
     export_menuitems_to_csv,
-    export_hours_to_csv
+    export_hours_to_csv,
+    export_path
 )
 
 exports_bp = Blueprint("exports", __name__)
@@ -34,9 +35,9 @@ def download_all_csvs():
 
     # 3. Makes the zip file with each csv for hours, trucks, and menu items
     with zipfile.ZipFile(memory_file, "w", zipfile.ZIP_DEFLATED) as zf:
-        zf.write("data/food_trucks.csv", arcname="foodtrucks.csv")
-        zf.write("data/menu_items.csv", arcname="menu_items.csv")
-        zf.write("data/food_truck_hours.csv", arcname="hours.csv")
+        zf.write(export_path("food_trucks.csv"), arcname="foodtrucks.csv")
+        zf.write(export_path("menu_items.csv"), arcname="menu_items.csv")
+        zf.write(export_path("food_truck_hours.csv"), arcname="hours.csv")
 
     memory_file.seek(0)
 

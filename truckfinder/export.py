@@ -7,19 +7,26 @@ not the csv files it used to seed from in the early development stages
 """
 
 import csv
+from flask import current_app
 from truckfinder import db
 from truckfinder.models import FoodTruck, MenuItem, FoodTruckHours
 import os
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-EXPORT_DIR = os.path.join(BASE_DIR, "data")
-os.makedirs(EXPORT_DIR, exist_ok=True)
+
+def export_path(filename):
+    # Resolved per-request instead of at import time: on a read-only serverless
+    # filesystem the directory only exists once we point it under /tmp, and
+    # creating it at import would blow up before the app can even start.
+    export_dir = current_app.config["EXPORT_DIR"]
+    os.makedirs(export_dir, exist_ok=True)
+    return os.path.join(export_dir, filename)
+
 
 # -------------------------
 # FOOD TRUCKS
 # -------------------------
 def export_foodtrucks_to_csv():
-    path = os.path.join(EXPORT_DIR, "food_trucks.csv")
+    path = export_path("food_trucks.csv")
     trucks = FoodTruck.query.all()
 
     with open(path, "w", newline="", encoding="utf-8") as f:
@@ -34,7 +41,7 @@ def export_foodtrucks_to_csv():
 # MENU ITEMS
 # -------------------------
 def export_menuitems_to_csv():
-    path = os.path.join(EXPORT_DIR, "menu_items.csv")
+    path = export_path("menu_items.csv")
     items = MenuItem.query.all()
 
     with open(path, "w", newline="", encoding="utf-8") as f:
@@ -49,7 +56,7 @@ def export_menuitems_to_csv():
 # HOURS
 # -------------------------
 def export_hours_to_csv():
-    path = os.path.join(EXPORT_DIR, "food_truck_hours.csv")
+    path = export_path("food_truck_hours.csv")
     hours = FoodTruckHours.query.all()
 
     with open(path, "w", newline="", encoding="utf-8") as f:

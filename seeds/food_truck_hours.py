@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 from truckfinder import create_app, db
 from truckfinder.models import FoodTruckHours
+from seeds import data_path
 
 app = create_app()
 
@@ -10,7 +11,7 @@ def seed_food_truck_hours():
     with app.app_context():
         # Opens the food_truck csv file
         # newline="" corrects the csv handling
-        with open("data/food_truck_hours.csv", newline="", encoding="utf-8") as file:
+        with open(data_path("food_truck_hours.csv"), newline="", encoding="utf-8") as file:
             reader = csv.DictReader(file)
 
             #Turns it into a dictionary of items, and then adds it to the DB
