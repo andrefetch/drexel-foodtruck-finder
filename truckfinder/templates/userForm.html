@@ -30,8 +30,8 @@
     // Light mode = dark map, Dark mode = light map (inverted by design)
     function getMiniTileUrl() {
         return localStorage.getItem("theme") === "light"
-            ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-            : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+            ? cartoTileUrl('dark_all')
+            : cartoTileUrl('rastertiles/voyager');
     }
 
     // Initialize map tiles based on current theme

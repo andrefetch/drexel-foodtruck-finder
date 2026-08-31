@@ -78,6 +78,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>window.CARTO_KEY = {{ config['CARTO_API_KEY']|tojson }};</script>
+<script src="{{ url_for('static', filename='js/functions/basemap.js') }}"></script>
 <script>
   const hiddenIcon = L.icon({
     iconUrl: "{{ url_for('static', filename='images/is_hidden.png') }}",
@@ -105,7 +107,7 @@
     maxZoom: 19,
   }).setView([39.9566, -75.1899], 16);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  L.tileLayer(cartoTileUrl('rastertiles/voyager'), {
     maxZoom: 19,
   }).addTo(minimap);
 

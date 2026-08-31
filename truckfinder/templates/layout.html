@@ -16,6 +16,10 @@
             }
         })();
     </script>
+    <!-- Shared CARTO basemap URLs — must load before any page map script.
+         The key comes from the CARTO_API_KEY env var so it stays out of git. -->
+    <script>window.CARTO_KEY = {{ config['CARTO_API_KEY']|tojson }};</script>
+    <script src="{{ url_for('static', filename='js/functions/basemap.js') }}"></script>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="

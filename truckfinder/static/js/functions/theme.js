@@ -20,7 +20,7 @@ function restoreTheme() {
 
         // If on map page, also swap map tiles
         if (typeof tiles !== "undefined") {
-            tiles.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').redraw();
+            tiles.setUrl(cartoTileUrl('rastertiles/voyager')).redraw();
         }
     }
 }
@@ -35,7 +35,7 @@ function swapModes() {
 
         // Swap map tiles only if on map page
         if (typeof tiles !== "undefined") {
-            tiles.setUrl('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').redraw();
+            tiles.setUrl(cartoTileUrl('rastertiles/voyager')).redraw();
         }
 
         // Update sidebar toggle button if on map page
@@ -54,7 +54,7 @@ function swapModes() {
 
         // Swap map tiles only if on map page
         if (typeof tiles !== "undefined") {
-            tiles.setUrl('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').redraw();
+            tiles.setUrl(cartoTileUrl('dark_all')).redraw();
         }
 
         // Update sidebar toggle button if on map page

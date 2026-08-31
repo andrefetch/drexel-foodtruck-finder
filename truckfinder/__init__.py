@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -6,6 +7,10 @@ from flask_admin import Admin
 from flask_login import LoginManager
 from flask_admin.contrib.sqla import ModelView
 from flask_babel import Babel
+
+# Loads .env for local runs. Does not override real env vars, so hosted
+# deployments (Vercel) keep using the values set in their dashboard.
+load_dotenv()
 
 db = SQLAlchemy()
 # Makes Login Manager
@@ -21,6 +26,10 @@ def create_app():
 
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-here')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///site.db')
+
+    # CARTO Basemaps key. Templates hand this to basemap.js. Unset just means
+    # watermarked map tiles, so local runs without a .env still work.
+    app.config['CARTO_API_KEY'] = os.environ.get('CARTO_API_KEY', '')
 
     # Everything the app writes at runtime (exported CSVs, review photos) lives
     # under WRITABLE_DIR. Serverless hosts (Vercel) mount the code read-only and

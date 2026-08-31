@@ -12,3 +12,6 @@ __pycache__/
 *.pyc
 venv/
 .venv/
+
+# Local secrets. Env vars are set in the Vercel dashboard, not shipped in the bundle.
+.env
