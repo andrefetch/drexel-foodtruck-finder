@@ -2,6 +2,4 @@ __pycache__/
 *.pyc
 venv/
 .venv/
-
-# Local secrets — CARTO_API_KEY etc. Never commit this; see .env.example
 .env
